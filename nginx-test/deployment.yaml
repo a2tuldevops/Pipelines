@@ -1,0 +1,22 @@
+# deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-test-deployment
+  labels:
+    app: nginx-test
+spec:
+  replicas: 1 # Start with 1 replica for simplicity
+  selector:
+    matchLabels:
+      app: nginx-test
+  template:
+    metadata:
+      labels:
+        app: nginx-test
+    spec:
+      containers:
+      - name: nginx
+        image: nginx:latest # Standard Nginx image, listens on port 80 by default
+        ports:
+        - containerPort: 80
