@@ -1,0 +1,16 @@
+# service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: webapp-service
+  namespace: default
+spec:
+  selector:
+    app: webapp
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+      nodePort: 30000 # Optional: You can specify a port, or let Kubernetes pick one.
+                     # Make sure it's in the 30000-32767 range and not already in use.
+  type: NodePort # <--- Change this line!
