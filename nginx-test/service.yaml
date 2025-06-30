@@ -1,0 +1,18 @@
+# service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginx-test-service
+  namespace: default # Make sure this matches your ArgoCD application's target namespace
+spec:
+  selector:
+    app: nginx-test # This MUST match the label in your deployment's template
+  ports:
+    - protocol: TCP
+      port: 80 # The port the Service itself listens on
+      targetPort: 80 # The port the Nginx container listens on (from deployment.yaml)
+      nodePort: 30080 # Choose a unique port in the 30000-32767 range.
+                      # Make sure it's not currently in use or blocked by a firewall.
+                      # You can omit this and let Kubernetes pick one, but specifying
+                      # it makes troubleshooting simpler.
+  type: NodePort
